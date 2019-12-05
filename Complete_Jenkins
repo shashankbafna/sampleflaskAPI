@@ -12,7 +12,7 @@ pipeline{
             }
         }
         
-        stage('Create Image'){
+        stage('Create Image using docker plugin'){
             steps{
                 script {
                     dockerImg=docker.build dockerreg + ":$BUILD_NUMBER"
@@ -20,7 +20,7 @@ pipeline{
             }
         }
         
-        stage('Run Image'){
+        stage('Run Image from a Parametrized Jenkins job'){
             steps{
                 build job: 'Test_curl', parameters:[
                     string (name:'Check_Docker_Image',value:'Run_Image')
@@ -28,13 +28,13 @@ pipeline{
             }
         }
         
-        stage('Test Image'){
+        stage('Test Image via script in SCM'){
             steps{
                 sh 'python ./ValidateImage.py'
             }
         }
         
-        stage('Stop Image'){
+        stage('Stop Image from Jenkins job'){
             steps{
                 build job: 'Test_curl', parameters:[
                     string (name:'Check_Docker_Image',value:'Stop_Container')
