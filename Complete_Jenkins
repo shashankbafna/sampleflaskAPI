@@ -75,7 +75,14 @@ pipeline{
         }
         
         stage('Deploy services to Pods'){
-            
+            agent{
+               kubernetes {
+                   yamlFile 'services.yaml'
+               }
+            }
+            steps{
+             sh 'hostname -f'
+            }
         }
         
         stage('validate Pods'){
