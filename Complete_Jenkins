@@ -37,7 +37,7 @@ pipeline{
         stage('Stop Image'){
             steps{
                 build job: 'Test_curl', parameters:[
-                    string (name:'Check_Docker_Image',value:'Stop_Image')
+                    string (name:'Check_Docker_Image',value:'Stop_Container')
                     ], wait: true
             }
         }
