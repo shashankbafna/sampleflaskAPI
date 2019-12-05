@@ -4,12 +4,7 @@ pipeline{
         dockerregcred='DockerNexusDox-Server'
         dockerImg=''
     }
-    agent{
-               kubernetes {
-                   label poddeploylabel
-                   yamlFile 'services.yaml'
-               }
-            }
+    agent any
     stages{
         stage('Get From SCM'){
             steps{
