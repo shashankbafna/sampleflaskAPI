@@ -1,0 +1,47 @@
+pipeline{
+    environment {
+        dockerreg="ilutdto353.corp.amdocs.com/sbafna/flasksampleapi"
+        dockerregcred='DockerNexusDox-Server'
+        dockerImg=''
+    }
+    agent any
+    stages{
+        stage('Get From SCM'){
+            steps{
+                git 'https://github.com/shashankbafna/sampleflaskAPI.git'
+            }
+        }
+        
+        stage('Create Image'){
+            steps{
+                script {
+                    dockerImg=docker.build dockerreg + ":$BUILD_NUMBER"
+                }
+            }
+        }
+        
+        stage('Test Image'){
+            steps{
+                build job: 'Test_curl', parameters:[
+                    string (name:'Check_Docker_Image',value:'Test_Full')
+                    ], wait: true
+            }
+        }
+        
+        stage('Upload to Nexus'){
+            steps{
+                script{
+                      docker.withRegistry( 'http://ilutdto353.corp.amdocs.com', dockerregcred ) {
+                           dockerImg.push()
+                      }
+                }
+            }
+        }
+        
+        stage('Remove old Nexus repositories'){
+            steps{
+                sh "docker rmi $dockerreg:$BUILD_NUMBER"
+            }
+        }
+    }
+}
