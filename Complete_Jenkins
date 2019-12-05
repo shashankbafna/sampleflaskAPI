@@ -20,11 +20,17 @@ pipeline{
             }
         }
         
-        stage('Test Image'){
+        stage('Run Image'){
             steps{
                 build job: 'Test_curl', parameters:[
-                    string (name:'Check_Docker_Image',value:'Test_Full')
+                    string (name:'Check_Docker_Image',value:'Run_Image')
                     ], wait: true
+            }
+        }
+        
+        stage('Run Image'){
+            steps{
+                sh 'python ./ValidateImage.py'
             }
         }
         
