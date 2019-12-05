@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+	name: simpleflaskapp
+spec:
+	selector:
+		app: simpleflaskapp
+	ports:
+	- protocol: TCP
+	  port: 80
+	  targetPort: 9299
+	type: LoadBalancer
