@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+ name: simpleflaskapp
+ labels:
+  name: simpleflaskapp
+  app: simpleflaskapp
+spec:
+ replicas: 1
+ selector:
+  matchLabels:
+   name: simpleflaskapp
+   app: simpleflaskapp
+ template:
+  metadata:
+   name: simpleflaskapp
+   labels:
+    name: simpleflaskapp
+    app: simpleflaskapp
+  spec:
+   containers:
+   - name: simpelflaskapp
+     image: ilutdto353.corp.amdocs.com/sbafna/flasksampleapi:latest
+     imagePullPolicy: Always
+     ports:
+     - containerPort: 9299
