@@ -61,7 +61,7 @@ pipeline{
         stage('Deploy to Pods'){
               steps{
                 script{
-                      sh 'kubectl create -f deployments.yaml'
+                      sh 'kubectl create -f deployments.yaml -v=8'
                       }
                 }
             }
@@ -69,7 +69,7 @@ pipeline{
         stage('Deploy services to Pods'){
              steps{
                 script{
-                      sh 'kubectl apply -f services.yaml'
+                      sh 'kubectl apply -f services.yaml -v=8'
                       }
                 }
           }
