@@ -61,9 +61,7 @@ pipeline{
         stage('Deploy to Pods'){
               steps{
                 script{
-                      sh 'pwd'
-                      sh 'ls -lart; whoami'
-                      sh 'kubectl create -f deployment.yaml -v=8'
+                      sh 'kubectl get deployment simpleflaskapp || kubectl create -f deployment.yaml && kubectl apply -f deployment.yaml'
                       }
                 }
             }
@@ -71,7 +69,7 @@ pipeline{
         stage('Deploy services to Pods'){
              steps{
                 script{
-                      sh 'kubectl apply -f services.yaml -v=8'
+                      sh 'kubectl apply -f services.yaml'
                       }
                 }
           }
