@@ -75,8 +75,11 @@ pipeline{
           }
         
         stage('validate Pods'){
-            steps{
-               sh 'curl http://ilcepoc0590.corp.amdocs.com:9999/'
+            retry(3) {
+              steps{
+                 sleep 2
+                 sh 'curl http://ilcepoc0590.corp.amdocs.com:9999/'
+              }
             }
         }
         
