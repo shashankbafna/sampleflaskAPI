@@ -59,26 +59,20 @@ pipeline{
         }
         
         stage('Deploy to Pods'){
-            agent{
-               kubernetes {
-                   yamlFile 'deployment.yaml'
-               }
+              steps{
+                script{
+                      sh 'kubectl create -f deployments.yaml'
+                      }
+                }
             }
-            steps{
-             sh 'pwd'
-            }
-        }
         
         stage('Deploy services to Pods'){
-            agent{
-               kubernetes {
-                   yamlFile 'services.yaml'
-               }
-            }
-            steps{
-             sh 'hostname -f'
-            }
-        }
+             steps{
+                script{
+                      sh 'kubectl apply -f services.yaml'
+                      }
+                }
+          }
         
         stage('validate Pods'){
             steps{
