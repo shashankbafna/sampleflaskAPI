@@ -63,7 +63,7 @@ pipeline{
                 script{
                       sh 'pwd'
                       sh 'ls -lart; whoami'
-                      sh 'kubectl create -f deployments.yaml -v=8'
+                      sh 'kubectl create -f deployment.yaml -v=8'
                       }
                 }
             }
