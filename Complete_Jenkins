@@ -61,6 +61,8 @@ pipeline{
         stage('Deploy to Pods'){
               steps{
                 script{
+                      sh 'pwd'
+                      sh 'ls -lart; whoami'
                       sh 'kubectl create -f deployments.yaml -v=8'
                       }
                 }
