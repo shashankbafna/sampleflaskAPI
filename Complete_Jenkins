@@ -59,12 +59,13 @@ pipeline{
         }
         
         stage('Deploy to Pods'){
-              steps{
                 agent {
                    kubernetes {
                        yamlFile 'deployment.yaml' 
                    }
                 }
+                steps{
+                  sh 'pwd; whoami; hostname -f'
             }
          }
         
