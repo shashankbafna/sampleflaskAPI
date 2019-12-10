@@ -60,11 +60,13 @@ pipeline{
         
         stage('Deploy to Pods'){
               steps{
-                script{
-                      sh 'kubectl get deployment simpleflaskapp || kubectl create -f deployment.yaml && kubectl apply -f deployment.yaml'
-                      }
+                agent {
+                   kubernetes {
+                       yamlFile 'deployment.yaml' 
+                   }
                 }
             }
+         }
         
         stage('Deploy services to Pods'){
              steps{
